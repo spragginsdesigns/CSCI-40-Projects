@@ -5,41 +5,35 @@
  * Date: 06/17/2024
  * Instructor: Brian Baker
  *
- * This program calculates the temperature of a body at 1-hour intervals after death
- * using Newton's Law of Cooling. It prints the temperature at the time of death
- * and at each subsequent hour up to 4 hours after death.
+ * This program simulates the cooling process of a body after death, applying Newton's Law of Cooling.
+ * It calculates and displays the body's temperature at hourly intervals up to four hours post-mortem.
  */
+
 
 #include <iostream>
 using namespace std;
 
 int main() {
-    // Declare variables for temperatures at each hour
-    double temperature0, temperature1, temperature2, temperature3, temperature4;
+    // Variables to hold the body's temperature at the time of death and at 1-hour intervals thereafter.
+    double initialTemp, tempAfter1Hour, tempAfter2Hours, tempAfter3Hours, tempAfter4Hours;
 
-    // Prompt the user to enter the starting temperature of the body
-    cout << "Enter the starting temperature of the body: ";
-    cin >> temperature0;
+    // Ask the user for the body's initial temperature.
+    cout << "Please enter the body's initial temperature (at time of death): ";
+    cin >> initialTemp;
 
-    // Calculate temperatures at each hour using Newton's Law of Cooling
-    // Temperature after 1 hour
-    temperature1 = temperature0 + (27 - temperature0) * 0.2;
+    // Calculate the body's temperature at each hour, up to 4 hours, using Newton's Law of Cooling.
+    // The environment temperature is assumed to be 27 degrees Celsius.
+    tempAfter1Hour = initialTemp + (27 - initialTemp) * 0.2;
+    tempAfter2Hours = tempAfter1Hour + (27 - tempAfter1Hour) * 0.2;
+    tempAfter3Hours = tempAfter2Hours + (27 - tempAfter2Hours) * 0.2;
+    tempAfter4Hours = tempAfter3Hours + (27 - tempAfter3Hours) * 0.2;
 
-    // Temperature after 2 hours
-    temperature2 = temperature1 + (27 - temperature1) * 0.2;
-
-    // Temperature after 3 hours
-    temperature3 = temperature2 + (27 - temperature2) * 0.2;
-
-    // Temperature after 4 hours
-    temperature4 = temperature3 + (27 - temperature3) * 0.2;
-
-    // Print the temperatures
-    cout << "Starting temperature: " << temperature0 << endl;
-    cout << "Temperature after 1 Hour: " << temperature1 << endl;
-    cout << "Temperature after 2 Hours: " << temperature2 << endl;
-    cout << "Temperature after 3 Hours: " << temperature3 << endl;
-    cout << "Temperature after 4 Hours: " << temperature4 << endl;
+    // Display the calculated temperatures.
+    cout << "Initial temperature at time of death: " << initialTemp << " degrees Celsius" << endl;
+    cout << "Temperature after 1 hour: " << tempAfter1Hour << " degrees Celsius" << endl;
+    cout << "Temperature after 2 hours: " << tempAfter2Hours << " degrees Celsius" << endl;
+    cout << "Temperature after 3 hours: " << tempAfter3Hours << " degrees Celsius" << endl;
+    cout << "Temperature after 4 hours: " << tempAfter4Hours << " degrees Celsius" << endl;
 
     return 0;
 }
