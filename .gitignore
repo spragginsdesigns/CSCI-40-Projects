@@ -33,3 +33,6 @@
 
 # Ignore tempCodeRunner files
 tempCodeRunnerFile.cpp
+
+# vscode files
+.vscode/
