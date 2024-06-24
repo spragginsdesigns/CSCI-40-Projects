@@ -30,7 +30,7 @@ int main() {
 
   double perimeter = 2 * radius * PI;
 
-  std::cout << "The perimeter of the circle is: " << perimeter << std::endl; // Output of program
+  std::cout << "The Perimeter of the Circle is: " << perimeter << std::endl; // Output of program
 
   return 0;
 }
