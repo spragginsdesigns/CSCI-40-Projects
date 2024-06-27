@@ -1,3 +1,8 @@
+// Created by Austin Spraggins
+// CE2 TV Recommendations
+// This program asks the user for their age and then recommends a TV show based on their age.
+
+
 #include <iostream>
 #include <string>
 
