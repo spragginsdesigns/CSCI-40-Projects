@@ -1,12 +1,17 @@
 #include <iostream>
+#include <limits>
 
-// Function to calculate the number of steps in the Hailstone sequence
-int hailstoneSteps(int n) {
+int hailstoneSteps(long long n) {
     int steps = 0;
     while (n != 1) {
         if (n % 2 == 0) {
             n = n / 2;
         } else {
+            // Check for potential overflow
+            if (n > (std::numeric_limits<long long>::max() - 1) / 3) {
+                std::cout << "Overflow detected. Stopping the program.\n";
+                return -1;  // Indicate an error
+            }
             n = 3 * n + 1;
         }
         steps++;
@@ -15,25 +20,24 @@ int hailstoneSteps(int n) {
 }
 
 int main() {
-    int start;
-    // Prompt the user to enter a positive integer
-    std::cout << "Enter a positive integer: ";
-    std::cin >> start;
+    long long seed = 1;
 
-    // Verify the input is a positive integer
-    while (start <= 0) {
-        std::cout << "That is not a positive integer. Enter a positive integer: ";
-        std::cin >> start;
-    }
+    while (true) {
+        int steps = hailstoneSteps(seed);
 
-    // Calculate and display the number of steps for the input
-    int steps = hailstoneSteps(start);
-    std::cout << "Number of steps = " << steps << std::endl;
+        if (steps == -1) {
+            break;  // Stop if overflow is detected
+        }
 
-    // Optional hard mode: check all positive integers starting from 1
-    for (int i = 1; i <= start; ++i) {
-        steps = hailstoneSteps(i);
-        std::cout << "Seed: " << i << "  Steps: " << steps << std::endl;
+        std::cout << "Seed: " << seed << "  Steps: " << steps << std::endl;
+
+        // Check for potential overflow before incrementing seed
+        if (seed == std::numeric_limits<long long>::max()) {
+            std::cout << "The maximum possible seed value has been reached.\n";
+            break;
+        }
+
+        seed++;
     }
 
     return 0;
