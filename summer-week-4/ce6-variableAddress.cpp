@@ -1,17 +1,15 @@
 #include <iostream>
 
-using namespace std;
-
+// Main function
 int main() {
-    // Declare a variable to store the user's age
     int age;
 
     // Ask the user to enter their age
-    cout << "Please enter your age: ";
-    cin >> age;
+    std::cout << "Please enter your age: ";
+    std::cin >> age;
 
     // Display the memory location where the age is stored
-    cout << "Your age is stored at memory location: " << &age << endl;
+    std::cout << "Your age is stored at memory location: " << &age << std::endl;
 
     return 0;
 }

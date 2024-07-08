@@ -1,76 +1,75 @@
 #include <iostream>
 #include <vector>
-#include <algorithm> // For sort
+// Optional Hard Mode needs <algorithm> for std::sort
+#include <algorithm>
+// Optional Insane Mode needs <unordered_map> for std::unordered_map
+#include <unordered_map>
 
-using namespace std;
-
-// Function to calculate the mean of the array
 double calculateMean(const int arr[], int size) {
-    int sum = 0;
-    for (int i = 0; i < size; ++i) {
+    double sum = 0;
+    for (int i = 0; i < size; i++) {
         sum += arr[i];
     }
-    return static_cast<double>(sum) / size;
+    return sum / size;
 }
 
-// Function to calculate the median of the array
-double calculateMedian(int arr[], int size) {
-    // Sort the array
-    sort(arr, arr + size);
+double calculateMedian(const int arr[], int size) {
+    // Create a copy of the array
+
+    std::vector<int> sortedArr(arr, arr + size); // Optinal Hard Mode line included
+
+    // Sort the copy
+    std::sort(sortedArr.begin(), sortedArr.end()); // Optinal Hard Mode line included
 
     if (size % 2 == 0) {
-        // If the size is even, take the mean of the two central numbers
-        return (arr[size / 2 - 1] + arr[size / 2]) / 2.0;
+        // If the size is even, average the two middle elements
+        return (sortedArr[size / 2 - 1] + sortedArr[size / 2]) / 2.0;
     } else {
-        // If the size is odd, take the central number
-        return arr[size / 2];
+        // If the size is odd, return the middle element
+        return sortedArr[size / 2];
     }
 }
 
-// Optional Insane Mode: Function to calculate the mode of the array
-vector<int> calculateMode(const int arr[], int size) {
-    vector<int> mode;
-    int maxCount = 0;
-    int currentCount = 1;
+// Optional Insane Mode: Calculate mode
+std::vector<int> calculateMode(const int arr[], int size) {
+    std::unordered_map<int, int> frequency;
+    int max_frequency = 0;
+    std::vector<int> modes;
 
-    for (int i = 1; i < size; ++i) {
-        if (arr[i] == arr[i - 1]) {
-            currentCount++;
-        } else {
-            currentCount = 1;
-        }
-
-        if (currentCount > maxCount) {
-            maxCount = currentCount;
-            mode.clear();
-            mode.push_back(arr[i]);
-        } else if (currentCount == maxCount) {
-            mode.push_back(arr[i]);
+    // Count frequency of each number
+    for (int i = 0; i < size; i++) {
+        frequency[arr[i]]++;
+        if (frequency[arr[i]] > max_frequency) {
+            max_frequency = frequency[arr[i]];
         }
     }
 
-    return mode;
+    // Find all numbers with the maximum frequency
+    for (const auto& pair : frequency) {
+        if (pair.second == max_frequency) {
+            modes.push_back(pair.first);
+        }
+    }
+
+    return modes;
 }
 
 int main() {
-    int drinksConsumed[21] = {0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 5, 5, 5, 7};
+    int drinksConsumed[] = {0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 5, 5, 5, 7};
     int size = sizeof(drinksConsumed) / sizeof(drinksConsumed[0]);
 
-    // Calculate mean
     double mean = calculateMean(drinksConsumed, size);
-    cout << "Mean number of drinks consumed: " << mean << endl;
-
-    // Calculate median
     double median = calculateMedian(drinksConsumed, size);
-    cout << "Median number of drinks consumed: " << median << endl;
-
     // Optional Insane Mode: Calculate mode
-    vector<int> mode = calculateMode(drinksConsumed, size);
-    cout << "Mode number of drinks consumed: ";
-    for (int value : mode) {
-        cout << value << " ";
+    std::vector<int> modes = calculateMode(drinksConsumed, size);
+
+    std::cout << "Mean: " << mean << std::endl;
+    std::cout << "Median: " << median << std::endl;
+    std::cout << "Modes: ";
+    for (int mode : modes) {
+        std::cout << mode << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
 
     return 0;
 }

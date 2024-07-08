@@ -2,48 +2,34 @@
 #include <fstream>
 #include <string>
 
-using namespace std;
-
-void readCodeWord(const string& filename) {
-    ifstream inputFile(filename);
-    if (inputFile.is_open()) {
-        string codeWord;
-        getline(inputFile, codeWord);
-        if (!codeWord.empty()) {
-            cout << "Current code word: " << codeWord << endl;
-        } else {
-            cout << "No code word found in the file." << endl;
-        }
-        inputFile.close();
-    } else {
-        cout << "File not found. This is the first time running the program." << endl;
-    }
-}
-
-void writeCodeWord(const string& filename, const string& codeWord) {
-    ofstream outputFile(filename);
-    if (outputFile.is_open()) {
-        outputFile << codeWord;
-        outputFile.close();
-        cout << "New code word saved successfully." << endl;
-    } else {
-        cout << "Error opening file for writing." << endl;
-    }
-}
-
+// Main function
 int main() {
-    const string filename = "codeword.txt";
+    const std::string FILENAME = "codeword.txt";
+    std::string codeword;
 
-    // Read and display the current code word
-    readCodeWord(filename);
+    // Step 1: Read codeword from file
+    std::ifstream inFile(FILENAME);
+    if (inFile.is_open()) {
+        std::getline(inFile, codeword);
+        std::cout << "Current codeword: " << codeword << std::endl;
+        inFile.close();
+    } else {
+        std::cout << "No existing codeword file found." << std::endl;
+    }
 
-    // Ask the user for a new code word
-    string newCodeWord;
-    cout << "Enter a new code word: ";
-    getline(cin, newCodeWord);
+    // Step 2: Ask user for new codeword
+    std::cout << "Enter a new codeword: ";
+    std::getline(std::cin, codeword);
 
-    // Write the new code word to the file
-    writeCodeWord(filename, newCodeWord);
+    // Step 3: Save new codeword to file
+    std::ofstream outFile(FILENAME);
+    if (outFile.is_open()) {
+        outFile << codeword;
+        outFile.close();
+        std::cout << "New codeword saved successfully." << std::endl;
+    } else {
+        std::cout << "Unable to save the new codeword." << std::endl;
+    }
 
     return 0;
 }
